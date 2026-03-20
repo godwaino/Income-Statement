@@ -1,7 +1,7 @@
 const IV_LENGTH = 12;
 
 export interface EncryptedPayload {
-  iv: Uint8Array;
+  iv: Uint8Array<ArrayBuffer>;
   ciphertext: ArrayBuffer;
 }
 

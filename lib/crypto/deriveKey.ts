@@ -2,13 +2,13 @@ const SALT_LENGTH = 16;
 const ITERATIONS = 600_000;
 const KEY_LENGTH = 256;
 
-export async function generateSalt(): Promise<Uint8Array> {
+export async function generateSalt(): Promise<Uint8Array<ArrayBuffer>> {
   return crypto.getRandomValues(new Uint8Array(SALT_LENGTH));
 }
 
 export async function deriveKey(
   passphrase: string,
-  salt: Uint8Array
+  salt: Uint8Array<ArrayBuffer>
 ): Promise<CryptoKey> {
   const encoder = new TextEncoder();
   const keyMaterial = await crypto.subtle.importKey(
