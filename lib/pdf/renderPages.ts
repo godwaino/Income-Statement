@@ -21,7 +21,7 @@ export async function renderPageToImage(
   const context = canvas.getContext("2d");
   if (!context) throw new Error("Failed to get 2D context");
 
-  await page.render({ canvasContext: context, viewport }).promise;
+  await page.render({ canvasContext: context as unknown as CanvasRenderingContext2D, viewport }).promise;
 
   const blob = await canvas.convertToBlob({ type: "image/png" });
   const imageData = await blob.arrayBuffer();
