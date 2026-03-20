@@ -11,7 +11,7 @@ async function getDirectory(
 export async function writeFile(
   path: string[],
   filename: string,
-  data: ArrayBuffer | Uint8Array
+  data: ArrayBuffer | Uint8Array<ArrayBuffer>
 ): Promise<void> {
   const dir = await getDirectory(...path);
   const fileHandle = await dir.getFileHandle(filename, { create: true });
