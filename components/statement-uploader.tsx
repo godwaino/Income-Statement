@@ -13,9 +13,10 @@ import type { StatementMeta, LedgerEntry } from "@/lib/storage/indexeddb";
 interface Props {
   onStatusChange: (status: "idle" | "processing" | "done" | "error") => void;
   onMessage: (msg: string) => void;
+  onRawText?: (text: string) => void;
 }
 
-export default function StatementUploader({ onStatusChange, onMessage }: Props) {
+export default function StatementUploader({ onStatusChange, onMessage, onRawText }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   async function handleFile(file: File) {
@@ -88,6 +89,7 @@ export default function StatementUploader({ onStatusChange, onMessage }: Props) 
 
       // Save extracted text
       await putRecord("extractedText", { statementId: id, text: fullText });
+      onRawText?.(fullText);
 
       // Parse and classify transactions
       onMessage("Parsing transactions...");
